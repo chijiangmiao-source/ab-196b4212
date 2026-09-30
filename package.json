@@ -1,0 +1,20 @@
+{
+  "name": "payload-compat-audit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "星载载荷根软件包语义化版本兼容审计",
+  "scripts": {
+    "test": "node --test test/",
+    "build": "vite build",
+    "start": "node server/server.mjs",
+    "verify": "node scripts/verify.mjs",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "devDependencies": {
+    "vite": "^5.4.10"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

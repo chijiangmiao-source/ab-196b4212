@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>星载载荷软件包版本兼容审计</title>
+    <link rel="stylesheet" href="/style.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>星载载荷 · 根软件包版本兼容审计</h1>
+      <p class="subtitle">
+        为每个可达组件精确选定一个语义化版本；依赖范围仅支持 <code>= &gt;= &lt;</code> 的合取。
+        至多 16 个组件、每组件至多 6 个版本。
+      </p>
+    </header>
+
+    <main class="layout">
+      <section class="panel input-panel">
+        <div class="panel-head">
+          <h2>① 录入</h2>
+          <div class="tabs" role="tablist">
+            <button class="tab active" id="tabForm" type="button">表单录入</button>
+            <button class="tab" id="tabJson" type="button">JSON 录入</button>
+          </div>
+        </div>
+
+        <div id="formView">
+          <label class="field-label">
+            根组件 roots（逗号分隔，按提交顺序去重）
+            <input id="rootsInput" type="text" placeholder="CAM" />
+          </label>
+
+          <div class="components-head">
+            <span class="field-label">组件 components（<span id="compCount">0</span>/16）</span>
+          </div>
+          <div id="componentList"></div>
+          <button class="btn secondary" id="addComponent" type="button">＋ 添加组件</button>
+
+          <div class="actions">
+            <button class="btn primary" id="submitBtn" type="button">运行审计</button>
+            <button class="btn ghost" id="clearBtn" type="button">清空</button>
+          </div>
+          <div class="samples">
+            <button class="linkbtn" id="loadCam" type="button">载入示例：CAM → NAV</button>
+            <button class="linkbtn" id="loadBus" type="button">载入示例：BUS 双根互斥</button>
+          </div>
+        </div>
+
+        <div id="jsonView" hidden>
+          <label class="field-label">直接编辑模型 JSON
+            <textarea id="jsonInput" rows="22" spellcheck="false"></textarea>
+          </label>
+          <div class="actions">
+            <button class="btn primary" id="submitJsonBtn" type="button">运行审计</button>
+            <button class="btn ghost" id="jsonToFormBtn" type="button">应用并回到表单</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel result-panel">
+        <div class="panel-head">
+          <h2>② 结论</h2>
+          <span id="statusBadge" class="badge idle">尚未审计</span>
+        </div>
+        <div id="result" class="result">
+          <p class="placeholder">录入后点击“运行审计”，此处展示选定版本与满足依据，或稳定的冲突树。</p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <span>选版规则：按组件标识 ASCII 升序依次处理，每个组件在满足全部入边范围的候选中取最高版本；结果对重复提交保持一致。</span>
+    </footer>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

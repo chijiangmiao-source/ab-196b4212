@@ -1,0 +1,16 @@
+{
+  "name": "payload-dependency-audit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "星载载荷根软件包依赖兼容版本选定与冲突审计服务",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test test/",
+    "build": "node scripts/build.mjs",
+    "start": "node src/server/index.mjs",
+    "verify": "node verify.mjs"
+  }
+}

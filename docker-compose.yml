@@ -1,0 +1,18 @@
+services:
+  audit:
+    build: .
+    image: payload-dependency-audit:latest
+    container_name: payload-dependency-audit
+    environment:
+      # 容器内监听端口固定；宿主映射端口可在 .env 或命令行覆盖：
+      #   AUDIT_HOST_PORT=9090 docker compose up --build
+      PORT: "8080"
+    ports:
+      - "${AUDIT_HOST_PORT:-8080}:8080"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:8080/healthz"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 5s
+    restart: unless-stopped

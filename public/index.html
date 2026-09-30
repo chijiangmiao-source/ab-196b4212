@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>星载载荷依赖兼容版本审计</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <h1>星载载荷依赖兼容版本审计</h1>
+      <p class="subtitle">
+        为每个可达组件精确选定一个语义化版本，验证全部根约束与依赖范围（仅支持 <code>= &gt;= &lt;</code> 的合取）能否同时成立。
+      </p>
+    </header>
+
+    <main>
+      <section class="panel">
+        <div class="panel-head">
+          <h2>录入</h2>
+          <div class="mode-switch">
+            <label><input type="radio" name="mode" value="form" checked /> 表单录入</label>
+            <label><input type="radio" name="mode" value="json" /> JSON</label>
+          </div>
+        </div>
+
+        <div id="formMode">
+          <fieldset>
+            <legend>组件（至多 16 个，每组件至多 6 个版本）</legend>
+            <div id="componentList"></div>
+            <button type="button" id="addComponent" class="btn">+ 添加组件</button>
+          </fieldset>
+
+          <fieldset>
+            <legend>根组件</legend>
+            <div id="rootList"></div>
+            <button type="button" id="addRoot" class="btn">+ 添加根组件</button>
+          </fieldset>
+        </div>
+
+        <div id="jsonMode" hidden>
+          <textarea id="jsonInput" spellcheck="false"></textarea>
+        </div>
+
+        <div class="actions">
+          <button type="button" id="submit" class="btn primary">执行审计</button>
+          <button type="button" id="loadSample" class="btn">载入示例 CAM→NAV</button>
+          <button type="button" id="loadConflict" class="btn">载入冲突示例 双根→BUS</button>
+          <span id="modeHint" class="hint"></span>
+        </div>
+      </section>
+
+      <section id="resultPanel" class="panel" aria-live="polite">
+        <h2>审计结论</h2>
+        <div id="result"><p class="hint">尚未执行审计。</p></div>
+      </section>
+    </main>
+
+    <footer>
+      <span class="hint">选定规则：组件按标识 ASCII 顺序、候选版本从高到低取首个可行解；重复提交结果一致。</span>
+    </footer>
+
+    <script src="/app.bundle.js"></script>
+  </body>
+</html>
